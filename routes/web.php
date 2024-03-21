@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin;
+use App\Http\Controllers\Doctor;
+use App\Http\Controllers\Patient;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +19,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Admin
+Route::group(
+    ['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],
+    function () {
+        Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+    }
+);
+
+// Patient
+Route::group(
+    ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
+    function () {
+        Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
+    }
+);
+
+// Doctor
+Route::group(
+    ['middleware' => 'doctor', 'prefix' => 'doctor', 'as' => 'doctor.'],
+    function () {
+        Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
+    }
+);
 
 Auth::routes();
 

@@ -16,7 +16,7 @@ class PatientMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role == 'patient') {
+        if (Auth::check() && Auth::user()->role == 'pasien') {
             return $next($request);
         }
 
