@@ -35,11 +35,11 @@ class LoginController extends Controller
                 $this->redirectTo = '/admin';
                 return $this->redirectTo;
                 break;
-            case 'doctor':
+            case 'dokter':
                 $this->redirectTo = '/doctor';
                 return $this->redirectTo;
                 break;
-            case 'patient':
+            case 'pasien':
                 $this->redirectTo = '/patient';
                 return $this->redirectTo;
                 break;
