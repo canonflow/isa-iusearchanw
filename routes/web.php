@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Admin
+// ===== Admin =====
 Route::group(
     ['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],
     function () {
@@ -28,7 +28,7 @@ Route::group(
     }
 );
 
-// Patient
+// ===== Patient =====
 Route::group(
     ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
     function () {
@@ -36,11 +36,20 @@ Route::group(
     }
 );
 
-// Doctor
+// ===== Doctor =====
 Route::group(
     ['middleware' => 'doctor', 'prefix' => 'doctor', 'as' => 'doctor.'],
     function () {
+        // Dashboard
         Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
+
+        // Janji Temu
+        Route::get('/patient', [Doctor\PatientController::class, 'index'])
+            ->name('patient.index');
+        Route::post('/patient', [Doctor\PatientController::class, 'store'])
+            ->name('patient.store');
+        Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
+            ->name('patient.destroy');
     }
 );
 
