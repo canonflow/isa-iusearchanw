@@ -26,4 +26,8 @@ class JanjiTemu extends Model
     public function doctor() : BelongsTo {
         return $this->belongsTo(Doctor::class, 'doctor_id');
     }
+
+    public function recipe() : BelongsTo{
+        return $this->belongsTo(Recipe::class, 'recipe_id');
+    }
 }

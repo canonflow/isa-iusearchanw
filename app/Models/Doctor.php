@@ -24,6 +24,9 @@ class Doctor extends Model
     public function janjiTemu() : HasMany {
         return $this->hasMany(JanjiTemu::class, 'doctor_id');
     }
+    public function recipe() : HasMany{
+        return $this->hasMany(Recipe::class, 'doctor_id');
+    }
 
     public function specialist() : BelongsTo {
         return $this->belongsTo(Specialist::class, 'specialist_id');

@@ -24,4 +24,8 @@ class Patient extends Model
     public function janjiTemu() : HasMany {
         return $this->hasMany(JanjiTemu::class, 'patient_id');
     }
+    
+    public function recipe() : HasMany {
+        return $this->hasMany(Recipe::class, 'patient_id');
+    }
 }
