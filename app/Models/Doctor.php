@@ -39,6 +39,6 @@ class Doctor extends Model
             'practic_schedules_has_doctors',
             'doctors_id',
             'practic_schedules_id',
-        )
+        );
     }
 }

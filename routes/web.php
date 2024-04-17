@@ -22,34 +22,37 @@ Route::get('/', function () {
 
 // ===== Admin =====
 Route::group(
-    ['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'],
+    ['prefix' => 'admin', 'as' => 'admin.'],
     function () {
-        Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+        // Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+        Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
     }
 );
 
-// ===== Patient =====
-Route::group(
-    ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
-    function () {
-        Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
-    }
-);
+// // ===== Patient =====
+// Route::group(
+//     ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
+//     function () {
+//         Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
+//     }
+// );
 
 // ===== Doctor =====
 Route::group(
-    ['middleware' => 'doctor', 'prefix' => 'doctor', 'as' => 'doctor.'],
+    ['prefix' => 'doctor', 'as' => 'doctor.'],
     function () {
         // Dashboard
-        Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
+        // Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
 
-        // Janji Temu
-        Route::get('/patient', [Doctor\PatientController::class, 'index'])
-            ->name('patient.index');
-        Route::post('/patient', [Doctor\PatientController::class, 'store'])
-            ->name('patient.store');
-        Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
-            ->name('patient.destroy');
+        // // Janji Temu
+        // Route::get('/patient', [Doctor\PatientController::class, 'index'])
+        //     ->name('patient.index');
+        // Route::post('/patient', [Doctor\PatientController::class, 'store'])
+        //     ->name('patient.store');
+        // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
+        //     ->name('patient.destroy');
+        Route::view("/resep", "doctor.recipe")->name("resep");
+        Route::view("/praktik", "doctor.practicSchedule")->name("praktik");
     }
 );
 
