@@ -29,7 +29,8 @@
                         <td>Anastasya Putri Mulyani</td>
                         <td>Diare</td>
                         <td>Senin, 22 April 2024</td>
-                        <td>Paracetamol</td>
+                        <td>Paracetamol<button class="btn btn-link">Edit</button> | <button
+                                class="btn btn-link">Tambah</button></td>
                         <td><button type="button" class="btn btn-success text-white">Terima</button> |
                             <button type="button" class="btn btn-danger text-white">Tolak</button>
                         </td>
@@ -39,7 +40,8 @@
                         <td>Fanny Rorencia Ribowo</td>
                         <td>Gatal-Gatal</td>
                         <td>Selasa, 23 April 2024</td>
-                        <td>Ceritizine</td>
+                        <td>Ceritizine<button class="btn btn-link">Edit</button> | <button
+                                class="btn btn-link">Tambah</button></td>
                         <td><button type="button" class="btn btn-success text-white">Terima</button> |
                             <button type="button" class="btn btn-danger text-white">Tolak</button>
                         </td>
@@ -49,7 +51,8 @@
                         <td>Janet Deby Marlien Manoach</td>
                         <td>Asam Lambung Naik</td>
                         <td>Rabu, 24 April 2024</td>
-                        <td>Promag</td>
+                        <td>Promag<button class="btn btn-link">Edit</button> | <button class="btn btn-link">Tambah</button>
+                        </td>
                         <td><button type="button" class="btn btn-success text-white">Terima</button> |
                             <button type="button" class="btn btn-danger text-white">Tolak</button>
                         </td>

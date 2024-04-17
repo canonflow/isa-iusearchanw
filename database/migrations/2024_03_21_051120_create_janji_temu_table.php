@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id');
             $table->foreignId('doctor_id');
+            $table->foreignId('recipe_id');
             $table->foreign('patient_id')
                 ->references('id')
                 ->on('patients')
@@ -25,7 +26,13 @@ return new class extends Migration
                 ->on('patients')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreign('recipe_id')
+            ->references('id')
+            ->on('recipes')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->text('riwayat_pemeriksaan');
+            $table->tinyInteger('status');
             $table->timestamp('tgl_temu')->nullable();
             $table->timestamps();
         });

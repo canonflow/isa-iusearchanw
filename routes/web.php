@@ -55,6 +55,8 @@ Route::group(
         //     ->name('patient.destroy');
         Route::view("/resep", "doctor.recipe")->name("resep");
         Route::view("/praktik", "doctor.practicSchedule")->name("praktik");
+        Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
+        Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
     }
 );
 

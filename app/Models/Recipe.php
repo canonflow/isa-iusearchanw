@@ -14,6 +14,7 @@ class Recipe extends Model
     protected $fillable = [
         'name',
         'dose',
+        'note',
         'doctor_id',
         'patient_id',
     ];
