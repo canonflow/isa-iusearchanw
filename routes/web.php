@@ -27,17 +27,17 @@ Route::group(
     ['prefix' => 'admin', 'as' => 'admin.'],
     function () {
         // Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+        Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
     }
 );
 
-// ===== Patient =====
-Route::group(
-    ['prefix' => 'patient', 'as' => 'patient.'],
-    function () {
-        // Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
-        Route::view('/home', 'patient.index')->name('index');
-    }
-);
+// // ===== Patient =====
+// Route::group(
+//     ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
+//     function () {
+//         Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
+//     }
+// );
 
 // ===== Doctor =====
 Route::group(
@@ -53,7 +53,8 @@ Route::group(
         //     ->name('patient.store');
         // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
         //     ->name('patient.destroy');
-        Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
+        Route::view("/resep", "doctor.recipe")->name("resep");
+        Route::view("/praktik", "doctor.practicSchedule")->name("praktik");
     }
 );
 
