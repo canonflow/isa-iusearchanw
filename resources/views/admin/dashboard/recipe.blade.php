@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Janji Temu</title>
+    <title>Recipe</title>
     <style>
         h1 {
             display: flex;
@@ -58,7 +58,7 @@
 </head>
 
 <body>
-    <h1>Admin Janji Temu</h1>
+    <h1>Admin Recipe</h1>
     <div id="content1">
         <form action="post">
             <label for="inputHead">Pencarian : </label>
@@ -72,29 +72,25 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Patient</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Dose</th>
                     <th scope="col">Doctor</th>
-                    <th scope="col">Riwayat Pemeriksaan</th>
-                    <th scope="col">Tanggal Temu</th>
-                    <th scope="col">Recipes_Id</th>
-                </tr>
+                    <th scope="col">Patient</th>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Anastasya Putri Mulyani</td>
+                    <td>Obat Rawat Jalan 1</td>
+                    <td>3 x sehari</td>
                     <td>Nathan Garzya Santoso</td>
-                    <td>Belum ada</td>
-                    <td>15 April 2024</td>
-                    <td>1</td>
+                    <td>Anastasya Putri Mulyani</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Anastasya Putri Mulyani</td>
+                    <td>Obat Rawat Jalan 2</td>
+                    <td>3 x sehari</td>
                     <td>Amelia Griselda</td>
-                    <td>Konsultasi Medis</td>
-                    <td>17 April 2024</td>
-                    <td>2</td>
+                    <td>Anastasya Putri Mulyani</td>
                 </tr>
             </tbody>
         </table>

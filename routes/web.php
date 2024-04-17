@@ -28,7 +28,9 @@ Route::group(
     function () {
         // Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
         Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
-        Route::view('/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
+        Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
+        Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
+        Route::view('/display/recipe', 'admin.dashboard.recipe')->name('admin.recipe');
 
     }
 );
