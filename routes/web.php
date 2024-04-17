@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Doctor;
 use App\Http\Controllers\Patient;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\Patient;
 Route::get('/', function () {
     return view('home');
 });
+
 
 // ===== Admin =====
 Route::group(
