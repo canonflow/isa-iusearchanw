@@ -28,6 +28,8 @@ Route::group(
     function () {
         // Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
         Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
+        Route::view('/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
+
     }
 );
 
