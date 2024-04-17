@@ -32,12 +32,14 @@ Route::group(
 );
 
 // // ===== Patient =====
-// Route::group(
-//     ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
-//     function () {
-//         Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
-//     }
-// );
+Route::group(
+    ['prefix' => 'patient', 'as' => 'patient.'],
+    function () {
+        Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
+        Route::view('/janjiTemu', 'doctor.patient.janjitemu')->name('patient.janjitemu');
+        Route::view('/', 'doctor.patient.index')->name('patient.index');
+    }
+);
 
 // ===== Doctor =====
 Route::group(
