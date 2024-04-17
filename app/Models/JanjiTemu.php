@@ -16,7 +16,8 @@ class JanjiTemu extends Model
         'patient_id',
         'doctor_id',
         'tgl_temu',
-        'riwayat_pemeriksaan'
+        'riwayat_pemeriksaan',
+        'status'
     ];
 
     public function patient() : BelongsTo {

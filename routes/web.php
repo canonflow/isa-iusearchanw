@@ -53,6 +53,7 @@ Route::group(
         //     ->name('patient.store');
         // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
         //     ->name('patient.destroy');
+        Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
     }
 );
 
