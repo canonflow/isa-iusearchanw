@@ -17,7 +17,7 @@ use App\Http\Controllers\Patient;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 // ===== Admin =====
