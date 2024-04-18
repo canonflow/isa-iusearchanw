@@ -30,7 +30,9 @@
                     <h5 class="card-title">Amelia Griselda</h5>
                     <p class="card-text">Dokter Umum <br>20 years experience</p>
                     <p class="card-text"> <small class="text-body-secondary">Surabaya, Jawa Timur</small></p>
-                    <a href="#" class="btn btn-primary">Buat Janji</a>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary" type="button">Buat Janji</button>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -41,7 +43,9 @@
                     <h5 class="card-title">Nathan Garzya Santoso</h5>
                     <p class="card-text">Dokter Gigi <br>27 years experience</p>
                     <p class="card-text"> <small class="text-body-secondary">Surabaya, Jawa Timur</small></p>
-                    <a href="#" class="btn btn-primary">Buat Janji</a>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary" type="button">Buat Janji</button>
+                    </div>
                 </div>
                 </div>
             </div>
