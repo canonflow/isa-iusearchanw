@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class DoctorController extends Controller
 {
     public function index() {
-        return view('admin.layouts.index');
+        return view('admin.dashboard.dokter');
     }
 
 }

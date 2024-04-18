@@ -1,4 +1,4 @@
-@extends('admin.layouts.index')
+@extends('doctor.patient.index')
 
 @section('styles')
     <style>

@@ -64,6 +64,7 @@ Route::group(
         Route::view("/praktik", "doctor.practicSchedule")->name("praktik");
         Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
+        Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
     }
 );
 
