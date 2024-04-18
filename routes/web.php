@@ -31,6 +31,7 @@ Route::group(
         Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
         Route::view('/display/recipe', 'admin.dashboard.recipe')->name('admin.recipe');
+        Route::view('/listdokter', 'admin.dashboard.listdoctor')->name('admin.listdoctor');
 
     }
 );
