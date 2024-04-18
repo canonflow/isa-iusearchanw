@@ -40,12 +40,6 @@
                 <button class="btn btn-outline-primary" type="submit">Cari</button>
             </form>
         </div>
-        <!-- <div id="content1">
-            <form action="post">
-                <label for="inputSearch"><b>Pencarian : </b></label>
-                <input type="text" name="inputSearch" id="inputSearch">
-            </form>
-        </div> -->
 
         <div class="table-responsive">
             <table class="table">
