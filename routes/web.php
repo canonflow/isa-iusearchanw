@@ -60,8 +60,8 @@ Route::group(
         //     ->name('patient.store');
         // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
         //     ->name('patient.destroy');
-        Route::view("/resep", "doctor.recipe")->name("resep");
-        Route::view("/praktik", "doctor.practicSchedule")->name("praktik");
+        Route::view("/resep", "doctor.dashboard.recipe")->name("resep");
+        Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
         Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
         Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
