@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
@@ -14,14 +15,7 @@ class Service extends Model
         'name'
     ];
 
-    public function notas() : BelongsToMany {
-        return $this->belongsToMany(
-            Nota::class,  // Many to Many mbek apa
-            'detail_notas',  // Pivot table
-            'service_id',  // Foreign Key Model saat ini di pivot table
-            'nota_id',  // Foreign Key Model yg berelasi mnm di pivot table
-        )
-            ->withPivot(['price'])
-            ->withTimestamps();
+    public function janji_temus() : HasMany{
+        return $this->hasMany(JanjiTemu::class, 'service_id');
     }
 }

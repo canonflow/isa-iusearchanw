@@ -15,6 +15,7 @@ class Recipe extends Model
         'name',
         'dose',
         'note',
+        'unit',
         'doctor_id',
         'patient_id',
     ];

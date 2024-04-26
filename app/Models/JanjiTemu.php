@@ -17,7 +17,10 @@ class JanjiTemu extends Model
         'doctor_id',
         'tgl_temu',
         'riwayat_pemeriksaan',
-        'status'
+        'status',
+        'keluhan',
+        'service_id',
+        'recipe_id'
     ];
 
     public function patient() : BelongsTo {
@@ -30,5 +33,8 @@ class JanjiTemu extends Model
 
     public function recipe() : BelongsTo{
         return $this->belongsTo(Recipe::class, 'recipe_id');
+    }
+    public function service():BelongsTo{
+        return $this->belongsTo(Service::class, 'service_id');
     }
 }

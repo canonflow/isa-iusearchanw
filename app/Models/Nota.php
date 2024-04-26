@@ -15,15 +15,10 @@ class Nota extends Model
         'janji_temu_id',
         'grand_total'
     ];
-
-    public function services() : BelongsToMany {
-        return $this->belongsToMany(
-            Service::class,  // Many to Many mbek apa
-            'detail_notas',  // Pivot table
-            'nota_id',  // Foreign Key Model yg berelasi mnm di pivot table
-            'service_id',  // Foreign Key Model saat ini di pivot table
-        )
-            ->withPivot(['price'])
-            ->withTimestamps();
+    public function janji_temu(){
+        return $this->belongsTo(JanjiTemu::class, 'janji_temu_id');
+    }
+    public function patient(){
+        return $this->belongsTo(Patient::class, 'patient_id');
     }
 }

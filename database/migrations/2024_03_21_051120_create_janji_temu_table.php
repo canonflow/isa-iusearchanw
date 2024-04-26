@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('janji_temu', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id');
-            $table->foreignId('doctor_id');
-            $table->foreignId('recipe_id');
+            $table->foreignId('doctor_id')->nullable();
+            $table->foreignId('service_id')->nullable();
+            $table->foreignId('recipe_id')->nullable();
             $table->foreign('patient_id')
                 ->references('id')
                 ->on('patients')
@@ -31,8 +32,14 @@ return new class extends Migration
             ->on('recipes')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->text('riwayat_pemeriksaan');
-            $table->tinyInteger('status');
+            $table->text('riwayat_pemeriksaan')->nullable();
+            $table->text('keluhan');
+            $table->enum('status', array('Menerima', 'Menunggu', 'Ditolak'));
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamp('tgl_temu')->nullable();
             $table->timestamps();
         });

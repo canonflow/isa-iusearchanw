@@ -15,6 +15,8 @@ class Patient extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'birth_date',
+        'address'
     ];
 
     public function user() : BelongsTo {
@@ -24,8 +26,11 @@ class Patient extends Model
     public function janjiTemu() : HasMany {
         return $this->hasMany(JanjiTemu::class, 'patient_id');
     }
-    
+
     public function recipe() : HasMany {
         return $this->hasMany(Recipe::class, 'patient_id');
+    }
+    public function notas(): HasMany{
+        return $this->hasMany(Nota::Class, 'patient_id');
     }
 }
