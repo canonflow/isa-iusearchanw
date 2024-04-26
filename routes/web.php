@@ -30,9 +30,11 @@ Route::group(
         Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
         Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
-        Route::view('/display/recipe', 'admin.dashboard.recipe')->name('admin.recipe');
-        Route::view('/listdokter', 'admin.dashboard.listdoctor')->name('admin.listdoctor');
+        Route::view('/display/recipe', 'admin.dashboard.recipe.blade.php')->name('admin.recipe.blade.php');
+//        Route::view('/listdokter', 'admin.dashboard.listdoctor')->name('admin.listdoctor');
+        Route::get('/listdokter', [Admin\AdminController::class, 'displayDoctor']);
         Route::view('/listpasien', 'admin.dashboard.listpatient')->name('admin.listpatient');
+
     }
 );
 
@@ -60,7 +62,7 @@ Route::group(
         //     ->name('patient.store');
         // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
         //     ->name('patient.destroy');
-        Route::view("/resep", "doctor.dashboard.recipe")->name("resep");
+        Route::view("/resep", "doctor.dashboard.recipe.blade.php")->name("resep");
         Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
         Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
