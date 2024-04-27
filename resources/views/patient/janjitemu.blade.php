@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="tglTemu" class="form-label">Tanggal Temu</label>
-                            <input type="text" class="form-control" id="tglTemu">
+                            <input type="text" class="form-control" id="tglTemu" readonly name="tgl_temu">
                         </div>
                         <div class="col-12 d-flex justify-content-end">
                             <input type="submit" value="Reserve" class="btn btn-primary">
@@ -42,7 +42,7 @@
 @section('script')
 
 <script>
-    const fp = flatpickr('#tgl_temu', {
+    const fp = flatpickr('#tglTemu', {
     dateFormat: "Y-m-d H:i:S",
     enableTime: true,
     time_24hr: true

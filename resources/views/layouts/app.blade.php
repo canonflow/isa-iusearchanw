@@ -77,7 +77,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     @yield('script')
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>

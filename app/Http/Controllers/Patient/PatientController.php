@@ -17,7 +17,7 @@ class PatientController extends Controller
     public function createJanjiTemu(Request $request){
         JanjiTemu::create([
             'patient_id'=>Auth::user()->patient->id,
-            'tgl_temu'=>date("y-m-d", strtotime($request->get('tgl_temu'))),
+            'tgl_temu'=>$request->get('tgl_temu'),
             'keluhan'=>$request->get('keluhan'),
             'status'=>'Menunggu',
         ]);
