@@ -19,6 +19,7 @@
                                 <th scope="col">Tanggal Temu</th>
                                 <th scope="col">Keluhan</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Recipes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,9 +30,23 @@
                             @foreach ($janjiTemu as $jt)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ ($jt->doctor_id) ? $jt->doctor->name : '' }}</td>
-                                    <td>{{ $jt }}</td>
+                                    <td>{{ ($jt->doctor_id) ? $jt->doctor->name : '-' }}</td>
+                                    <td>{{ $jt->tgl_temu }}</td>
+                                    <td>{{ $jt->keluhan }}</td>
+                                    <td>
+                                        @if($jt->status=='Menunggu')
+                                        <span class="badge bg-warning text-dark">{{$jt->status}}</span>
+                                        @else
+                                        <span class="badge bg-success">{{$jt->status}}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($jt->recipe_id!=null)
+                                        <a href=""class="btn btn-primary">Lihat resep doktor</a>
+                                        @endif
+                                    </td>
                                 </tr>
+                                @php($i++)
                             @endforeach
                         </tbody>
                     </table>
