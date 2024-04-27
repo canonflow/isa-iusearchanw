@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\JanjiTemu;
 use App\Models\Patient;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
     public function index() {
-        return view('doctor.dashboard.index');
+        $janjiTemu = JanjiTemu::where('doctor_id', Auth::user()->doctor->id)->get();
+        return view('doctor.dashboard.index', compact('janjiTemu'));
     }
 
     public function janjiTemu(){
@@ -55,4 +57,17 @@ class DoctorController extends Controller
         return back()->with('success', 'Menerima Janji Temu');
     }
 
+    public function riwayat(JanjiTemu $janjiTemu){
+        $services = Service::all();
+        return view('doctor.dashboard.riwayat', compact('janjiTemu', 'services'));
+    }
+
+    public function storeRiwayat(JanjiTemu $janjiTemu, Request $request){
+        $janjiTemu->update([
+            'riwayat'=>$request->get('riwayat'),
+            'service_id'=>$request->get('service')
+        ]);
+        session()->flash('listRiwayat', 'Berhasil menyimpan riwayat');
+        return redirect()->to(route('doctor.index'));
+    }
 }

@@ -71,6 +71,8 @@ Route::group(
         Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
         Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
+        Route::get('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'riwayat'])->name('riwayat');
+        Route::post('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'storeRiwayat'])->name('riwayat');
     }
 );
 
