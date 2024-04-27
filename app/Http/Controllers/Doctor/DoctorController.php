@@ -64,7 +64,7 @@ class DoctorController extends Controller
 
     public function storeRiwayat(JanjiTemu $janjiTemu, Request $request){
         $janjiTemu->update([
-            'riwayat'=>$request->get('riwayat'),
+            'riwayat_pemeriksaan'=>$request->get('riwayat'),
             'service_id'=>$request->get('service')
         ]);
         session()->flash('listRiwayat', 'Berhasil menyimpan riwayat');
