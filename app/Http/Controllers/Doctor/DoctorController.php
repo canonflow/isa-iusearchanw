@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Auth;
 class DoctorController extends Controller
 {
     public function index() {
-        return view('admin.dashboard.dokter');
+        return view('doctor.dashboard.index');
     }
 
-
+    public function janjiTemu(){
+        $janjitemu = JanjiTemu::where('status','Menunggu')->get();
+        return view('doctor.dashboard.janjitemu',compact('janjitemu'));
+    }
 
     public function store(Request $request) {
         $tglTemu = $request->get('tgl_temu');
@@ -46,9 +49,10 @@ class DoctorController extends Controller
 
     public function acceptJanjiTemu(JanjiTemu $janjiTemu){
         $janjiTemu->update([
-            'status'=>'Terima'
+            'doctor_id' => Auth::user()->doctor->id,
+            'status'=>'Diterima'
         ]);
-        return back()->with('success', 'Dokter Menerima Janji Temu');
+        return back()->with('success', 'Menerima Janji Temu');
     }
 
 }

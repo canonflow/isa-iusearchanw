@@ -52,7 +52,7 @@ Route::group(
 
 // ===== Doctor =====
 Route::group(
-    ['prefix' => 'doctor', 'as' => 'doctor.'],
+    ['middleware' => 'doctor', 'prefix' => 'doctor', 'as' => 'doctor.'],
     function () {
         // Dashboard
         // Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
@@ -64,9 +64,11 @@ Route::group(
         //     ->name('patient.store');
         // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
         //     ->name('patient.destroy');
+        Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
         Route::view("/resep", "doctor.dashboard.recipe.blade.php")->name("resep");
         Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
-        Route::view('/janjiTemu', 'doctor.dashboard.janjitemu')->name('janjiTemu');
+        Route::get('/janjiTemu', [Doctor\DoctorController::class, 'janjiTemu'])->name('janjiTemu');
+        Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
         Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
     }

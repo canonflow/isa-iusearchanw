@@ -34,7 +34,7 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->text('riwayat_pemeriksaan')->nullable();
             $table->text('keluhan');
-            $table->enum('status', array('Menerima', 'Menunggu', 'Ditolak'));
+            $table->enum('status', array('Diterima', 'Menunggu', 'Ditolak'));
             $table->foreign('service_id')
                 ->references('id')
                 ->on('services')

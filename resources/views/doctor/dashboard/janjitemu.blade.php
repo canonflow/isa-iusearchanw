@@ -1,4 +1,4 @@
-@extends('doctor.layouts.index')
+@extends('layouts.app')
 
 @section('styles')
     <style>
@@ -9,6 +9,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="container mt-5">
+            @if(session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{session()->get('success')}}
+            </div>
+            @endif
             <h1 class="text-center">JANJI TEMU PASIEN</h1>
             <h3 class="text-center">Dr. Nathan Garzya Santoso</h3>
             <h5 class="text-center">Dokter Umum</h5>
@@ -19,45 +24,29 @@
                         <th scope="col">Nama Pasien</th>
                         <th scope="col">Keluhan</th>
                         <th scope="col">Tanggal Temu</th>
-                        <th scope="col">Diagnosa</th>
-                        <th scope="col">Resep Obat</th>
-                        <th scope="col">Terima | Tolak</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $i=1;
+                    @endphp
+                    @foreach($janjitemu as $jt)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Anastasya Putri Mulyani</td>
-                        <td>Mencret dan Muntah</td>
-                        <td>Senin, 22 April 2024</td>
-                        <td>Diare <button class="btn btn-link">Edit</button></td>
-                        <td>Diapet <button class="btn btn-link">Edit</button></td>
-                        <td><button type="button" class="btn btn-success text-white">Terima</button> |
-                            <button type="button" class="btn btn-danger text-white">Tolak</button>
+                        <td>{{$i}}</td>
+                        <td>{{$jt->patient->name}}</td>
+                        <td>{{$jt->keluhan}}</td>
+                        <td>{{$jt->tgl_temu}}</td>
+                        <td>
+                            <form action="{{route("doctor.janjiTemu",["janjiTemu"=>$jt->id])}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Terima pasien</button>
+                            </form>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Fanny Rorencia Ribowo</td>
-                        <td>Gatal-Gatal</td>
-                        <td>Selasa, 23 April 2024</td>
-                        <td>Alergi<button class="btn btn-link">Edit</button></td>
-                        <td>Cetirizine<button class="btn btn-link">Edit</button></td>
-                        <td><button type="button" class="btn btn-success text-white">Terima</button> |
-                            <button type="button" class="btn btn-danger text-white">Tolak</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Janet Deby Marlien Manoach</td>
-                        <td>Asam Lambung Naik</td>
-                        <td>Rabu, 24 April 2024</td>
-                        <td>Cetirizine<button class="btn btn-link">Edit</button></td>
-                        <td>Promag<button class="btn btn-link">Edit</button></td>
-                        <td><button type="button" class="btn btn-success text-white">Terima</button> |
-                            <button type="button" class="btn btn-danger text-white">Tolak</button>
-                        </td>
-                    </tr>
+                    @php($i++)
+                    @endforeach
+                    
                 </tbody>
             </table>
         </div>
