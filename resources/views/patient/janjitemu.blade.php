@@ -1,18 +1,24 @@
-@extends('doctor.layouts.index');
+@extends('layouts.app');
 
 @section('content')
     <div class="container-fluid">
         <div class="container">
+            @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header bg-light">
                     <h1 class="text-center mt-3">TAMBAH JANJI TEMU</h1>
                     <br>
-                    <h5>Ny. Fanny Rorencia Ribowo</h5>
-                    <h6>19 thn</h6>
-                    <h6>Jl. Raya Kalirungkut, Kali Rungkut, Kec. Rungkut, Surabaya, Jawa Timur 60293</h6>
+                    <h5>{{ auth()->user()->patient->name }}</h5>
+                    <h6>{{ auth()->user()->patient->address }}</h6>
                 </div>
                 <div class="card-body">
-                    <form class="row g-3">
+                    {{-- {{ route('patient.create-janjitemu') }} --}}
+                    <form action="" method="POST" class="row g-3">
+                        @csrf
                         <div class="col-12">
                             <label for="inputKeluhan" class="form-label">Keluhan</label>
                             <br>
@@ -22,20 +28,17 @@
                             <label for="tglTemu" class="form-label">Tanggal Temu</label>
                             <input type="datetime-local" class="form-control" id="tglTemu">
                         </div>
-                        <div class="col-12">
-                            <label for="dokter">Pilih Dokter</label>
-                            <select class="form-select" id="dokter" aria-label="Default select example">
-                                <option selected hidden>Open this select menu</option>
-                                <option value="nathan">Dr. Nathan Garzya Santoso</option>
-                                <option value="amel">Dr. Amelia Griselda</option>
-                            </select>
-                        </div>
                         <div class="col-12 d-flex justify-content-end">
                             <input type="submit" value="Reserve" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        </div>      
     </div>
+@endsection
+
+
+@section('script')
+
 @endsection

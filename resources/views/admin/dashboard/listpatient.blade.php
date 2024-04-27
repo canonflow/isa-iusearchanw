@@ -6,7 +6,7 @@
             padding: 1px 30px;
         }
 
-        .table-responsive{
+        .table-responsive {
             flex-direction: column;
             align-items: center;
             border: 5px solid black;
@@ -15,7 +15,7 @@
             margin: 25px 25px;
             background-color: white;
         }
-        
+
         h1 {
             margin: 25px 25px;
             display: flex;
@@ -24,7 +24,8 @@
             font-weight: bold;
         }
 
-        th, td{
+        th,
+        td {
             text-align: center;
         }
     </style>
@@ -46,50 +47,28 @@
                 <table class="table caption-top">
                     <thead>
                         <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Tanggal Lahir</th>
-                        <th scope="col">Alamat</th>
-                        <th scope="col">Edit</th>
+                            <th scope="col">No.</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Tanggal Lahir</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Anastasya Putri</td>
-                        <td>24/09/2004</td>
-                        <td>Waru, Sidoarjo, Jawa Timur</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-primary">Edit</button>
-                                <button type="button" class="btn btn-primary">Hapus</button>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob Rijohnson</td>
-                        <td>28/05/1998</td>
-                        <td>Tenggilis, Surabaya, Jawa Timur</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-primary">Edit</button>
-                                <button type="button" class="btn btn-primary">Hapus</button>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td>Larry Deburgh</td>
-                        <td>05/12/1994</td>
-                        <td>Merjosari, Malang, Jawa Timur</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-primary">Edit</button>
-                                <button type="button" class="btn btn-primary">Hapus</button>
-                            </div>
-                        </td>
-                        </tr>
+                        @foreach ($patients as $patient)
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>{{ $patient->name }}</td>
+                                <td>{{ date('d-m-Y', strtotime($patient->birth_date)) }}</td>
+                                <td>{{ $patient->address }}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary">Edit</button>
+                                        <button type="button" class="btn btn-primary">Hapus</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </table>

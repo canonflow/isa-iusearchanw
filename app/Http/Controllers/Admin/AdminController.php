@@ -7,7 +7,8 @@ use App\Models\Doctor;
 use App\Models\JanjiTemu;
 use App\Models\Nota;
 use App\Models\Patient;
-use http\Client\Curl\User;
+use App\Models\User;
+// use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -41,7 +42,7 @@ class AdminController extends Controller
     public function makeStegano(Doctor $doctor) {
 
         $path = "";
-        return response()->download();
+        // return response()->download();
     }
 
     public function createNota(Request $request, JanjiTemu $janjiTemu){

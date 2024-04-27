@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Doctor;
 use App\Http\Controllers\Patient;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -33,18 +34,19 @@ Route::group(
         Route::view('/display/recipe', 'admin.dashboard.recipe.blade.php')->name('admin.recipe.blade.php');
 //        Route::view('/listdokter', 'admin.dashboard.listdoctor')->name('admin.listdoctor');
         Route::get('/listdokter', [Admin\AdminController::class, 'displayDoctor']);
-        Route::view('/listpasien', 'admin.dashboard.listpatient')->name('admin.listpatient');
+        Route::get('/listpasien', [Admin\AdminController::class, 'displayPatient']);
+        // Route::view('/listpasien', 'admin.dashboard.listpatient')->name('admin.listpatient');
 
     }
 );
 
 // // ===== Patient =====
 Route::group(
-    ['prefix' => 'patient', 'as' => 'patient.'],
+    ['middleware' => 'patient', 'prefix' => 'patient', 'as' => 'patient.'],
     function () {
         Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
-        Route::view('/janjiTemu', 'doctor.patient.janjitemu')->name('patient.janjitemu');
-        Route::view('/', 'doctor.patient.index')->name('patient.index');
+        Route::view('/janjiTemu', 'patient.janjitemu')->name('janjitemu');
+        Route::post('/janjiTemu', [Patient\PatientController::class, 'createJanjiTemu'])->name('create-janjitemu');
     }
 );
 

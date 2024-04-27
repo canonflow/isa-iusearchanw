@@ -8,7 +8,6 @@ use Iluminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Iluminate\Support\Str;
 
-
 class patientSeeder extends Seeder
 {
     /**
@@ -17,13 +16,22 @@ class patientSeeder extends Seeder
     public function run(): void
     {
         //
-        $id = 2;
-        $nama = "Anastasya Putri Mulyani";
+        $id = [2,6];
+        $nama = ["Anastasya Putri Mulyani", "Janet Deby Marlien Manoach"];
+        $date = [date("y-m-d", strtotime("24 September 2004")), date("y-m-d", strtotime("20 March 2004"))];
+        $address = ['Waru, Sidoarjo', 'Gubeng, Kertajaya'];
 
-        Patient::create([
-            'user_id'=> $id,
-            'name' => $nama,
-        ]);
+
+        for ($i=0; $i < count($id) ; $i++) { 
+            # code...
+            Patient::create([
+                'user_id'=> $id[$i],
+                'name' => $nama[$i],
+                'birth_date'=> $date[$i],
+                'address'=>$address[$i]
+            ]);
+        }
+        
 
     }
 }

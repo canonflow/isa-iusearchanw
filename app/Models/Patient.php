@@ -31,6 +31,6 @@ class Patient extends Model
         return $this->hasMany(Recipe::class, 'patient_id');
     }
     public function notas(): HasMany{
-        return $this->hasMany(Nota::Class, 'patient_id');
+        return $this->hasMany(Nota::class, 'patient_id');
     }
 }

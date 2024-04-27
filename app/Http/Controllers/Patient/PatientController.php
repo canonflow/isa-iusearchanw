@@ -1,24 +1,27 @@
 <?php
 
 namespace App\Http\Controllers\Patient;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\JanjiTemu;
+use App\Models\Nota;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
-    public function index() {
-        return view('admin.layouts.index');
+    public function index() {   
+        $janjiTemu = JanjiTemu::where('patient_id', Auth::user()->patient->id)->get();
+        return view('patient.index', compact('janjiTemu'));
     }
 
     public function createJanjiTemu(Request $request){
-        JanjiTemu::created([
+        JanjiTemu::create([
             'patient_id'=>Auth::user()->patient->id,
-            'tgl_temu'=>$request->get('tgl_temu'),
+            'tgl_temu'=>date("y-m-d", strtotime($request->get('tgl_temu'))),
             'keluhan'=>$request->get('keluhan'),
             'status'=>'Menunggu',
         ]);
+        return back()->with('success', 'Berhasil tambahkan Janji Temu');
     }
 
     public function getRecipe(JanjiTemu $janjiTemu){

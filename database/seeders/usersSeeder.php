@@ -17,8 +17,8 @@ class usersSeeder extends Seeder
     {
         //
         $i = 0;
-        $username = ["Nathan", "Putri", "Anton", "Fanny", "Amelia"];
-        $role = ["dokter", "pasien", "admin", "admin", "dokter"];
+        $username = ["Nathan", "Putri", "Anton", "Fanny", "Amelia", "Deby"];
+        $role = ["dokter", "pasien", "admin", "admin", "dokter", "pasien"];
         
 
         foreach ($username as $user) {
