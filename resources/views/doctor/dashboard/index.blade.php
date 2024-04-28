@@ -22,6 +22,7 @@
             <h1 class="text-center">JANJI TEMU PASIEN</h1>
             <h3 class="text-center">Dr. Nathan Garzya Santoso</h3>
             <h5 class="text-center">Dokter Umum</h5>
+            <a href="{{ route('doctor.janjiTemu') }}" class="btn btn-primary">Pilih Janji Temu Lainnya</a>
             <table class="table mt-5">
                 <thead>
                     <tr>
@@ -55,7 +56,7 @@
                     </tr>
                     @php($i++)
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>

@@ -22,12 +22,16 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/{janjiTemu}/nota/print', [Admin\AdminController::class, 'printNota'])->name('nota.print');
+
 
 // ===== Admin =====
 Route::group(
     ['middleware' => 'admin','prefix' => 'admin', 'as' => 'admin.'],
     function () {
         Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+        Route::post('/{janjiTemu}/nota', [Admin\AdminController::class, 'createNota']);
+
         Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
         Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
@@ -68,7 +72,7 @@ Route::group(
         Route::view("/resep", "doctor.dashboard.recipe.blade.php")->name("resep");
         Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
         Route::get('/janjiTemu', [Doctor\DoctorController::class, 'janjiTemu'])->name('janjiTemu');
-        Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('janjiTemu');
+        Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('terima-janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
         Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
         Route::get('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'riwayat'])->name('riwayat');

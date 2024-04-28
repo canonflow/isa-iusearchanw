@@ -17,6 +17,7 @@
             <h1 class="text-center">JANJI TEMU PASIEN</h1>
             <h3 class="text-center">Dr. Nathan Garzya Santoso</h3>
             <h5 class="text-center">Dokter Umum</h5>
+            <a href="{{ route('doctor.index') }}" class="btn btn-primary">Kembali</a>
             <table class="table mt-5">
                 <thead>
                     <tr>
@@ -38,7 +39,7 @@
                         <td>{{$jt->keluhan}}</td>
                         <td>{{$jt->tgl_temu}}</td>
                         <td>
-                            <form action="{{route("doctor.janjiTemu",["janjiTemu"=>$jt->id])}}" method="post">
+                            <form action="{{route("doctor.terima-janjiTemu",["janjiTemu"=>$jt->id])}}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-success">Terima pasien</button>
                             </form>
@@ -46,7 +47,7 @@
                     </tr>
                     @php($i++)
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>

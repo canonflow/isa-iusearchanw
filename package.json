@@ -13,6 +13,7 @@
         "vite": "^4.5.3"
     },
     "dependencies": {
-        "build": "^0.1.4"
+        "build": "^0.1.4",
+        "puppeteer": "^22.7.1"
     }
 }

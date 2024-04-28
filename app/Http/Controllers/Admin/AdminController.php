@@ -10,8 +10,11 @@ use App\Models\Nota;
 use App\Models\Patient;
 use App\Models\User;
 // use http\Client\Curl\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Spatie\LaravelPdf\Facades\Pdf;
+use function Spatie\LaravelPdf\Support\pdf;
 
 class AdminController extends Controller
 {
@@ -47,14 +50,30 @@ class AdminController extends Controller
         // return response()->download();
     }
 
-    public function createNota(Request $request, JanjiTemu $janjiTemu){
-        Nota::query()->create([
+    public function createNota(JanjiTemu $janjiTemu, Request $request) {
+        $request->validate([
+            'grand_total' => ['required'],
+        ]);
+
+        if (count($janjiTemu->nota()->get()) != 0) return redirect()->back()->with('failed', "Nota sudah pernah dibuat");
+
+        $nota = Nota::query()->create([
             'patient_id'=>$janjiTemu->patient_id,
             'janji_temu_id'=>$janjiTemu->id,
-            'grand_total'=>$request->get('total')
+            'grand_total'=>$request->get('grand_total')
         ]);
+
+        return redirect()->back()->with('success', "Berhasil membuat nota");
     }
 
+    public function printNota(JanjiTemu $janjiTemu) {
+        $name = "nota-" . date('Y-m-d', strtotime(Carbon::now())) . ".pdf";
+        return pdf()
+            ->view('admin.pdf.nota', compact('janjiTemu'))
+            ->format("A4")
+            ->name($name);
+//        return view('admin.pdf.nota', compact('janjiTemu'));
+    }
     public function displayDoctor(){
         $doctors = Doctor::all();
         return view('admin.dashboard.listdoctor', compact('doctors'));

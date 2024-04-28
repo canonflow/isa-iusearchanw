@@ -14,9 +14,9 @@
                 {{session()->get('success')}}
             </div>
             @endif
-            @if(session()->has('listRiwayat'))
-            <div class="alert alert-success" role="alert">
-                {{session()->get('listRiwayat')}}
+            @if(session()->has('failed'))
+            <div class="alert alert-danger" role="alert">
+                {{session()->get('failed')}}
             </div>
             @endif
             <h1 class="text-center">DAFTAR TRANSAKSI</h1>
@@ -46,9 +46,15 @@
                             <td>{{$jt->tgl_temu}}</td>
                             <td>
                                 @if(Count($jt->nota()->get())==0)
-                                <button type="button" class="btn btn-warning">Buat Nota</button>
+                                <button type="button" class="btn btn-warning" onclick="openModalBuatNota('{{ $jt->id }}')">Buat Nota</button>
                                 @else
-                                <button type="button" class="btn btn-success">Print Nota</button>
+                                <a
+                                    href="{{ route('nota.print', ['janjiTemu' => $jt->id]) }}"
+                                    class="btn btn-success"
+                                    target="_blank"
+                                >
+                                    Print Nota
+                                </a>
                                 @endif
                             </td>
                         </tr>
@@ -58,4 +64,42 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal Buat Nota -->
+    <div class="modal fade" id="modalBuatNota" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Buat Nota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" id="formModalBuatNota" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text fw-semibold" id="addon-wrapping">Grand Total</span>
+                            <input type="text" class="form-control" name="grand_total" placeholder="Rp. xxx.xxx" aria-label="Grand Total" aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Buat</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('js') }}/jquery.min.js"></script>
+    <script>
+        const modalBuatNota = document.getElementById('modalBuatNota');
+        const formModalBuatNota = document.getElementById('formModalBuatNota');
+        const openModalBuatNota = (id) => {
+            let action = `{{ route('admin.index') }}/${id}/nota`;
+            formModalBuatNota.setAttribute('action', action);
+            $("#modalBuatNota").modal('toggle');
+        }
+
+    </script>
 @endsection
