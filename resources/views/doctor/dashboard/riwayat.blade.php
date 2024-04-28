@@ -10,9 +10,9 @@
             @endif
             <div class="card">
                 <div class="card-header bg-light">
-                    <h1 class="text-center mt-3">TAMBAH JANJI TEMU</h1>
+                    <h1 class="text-center mt-3">Riwayat Pasien {{ $janjiTemu->patient->name }}</h1>
                     <br>
-                    <h5>{{ auth()->user()->doctor->name }}</h5>
+                    <h5>Dr. {{ auth()->user()->doctor->name }}</h5>
                 </div>
                 <div class="card-body">
                     {{-- {{ route('patient.create-janjitemu') }} --}}
@@ -30,15 +30,15 @@
                                 @foreach($services as $service)
                                 <option value="{{$service->id}}">{{$service->name}}</option>
                                 @endforeach
-                            </select>                        
+                            </select>
                         </div>
                         <div class="col-12 d-flex justify-content-end">
-                            <input type="submit" value="Reserve" class="btn btn-primary">
+                            <input type="submit" value="Tambah" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
             </div>
-        </div>      
+        </div>
     </div>
 @endsection
 

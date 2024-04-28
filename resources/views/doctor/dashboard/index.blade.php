@@ -20,7 +20,7 @@
             </div>
             @endif
             <h1 class="text-center">JANJI TEMU PASIEN</h1>
-            <h3 class="text-center">Dr. Nathan Garzya Santoso</h3>
+            <h3 class="text-center">Dr. {{ auth()->user()->doctor->name }}</h3>
             <h5 class="text-center">Dokter Umum</h5>
             <a href="{{ route('doctor.janjiTemu') }}" class="btn btn-primary">Pilih Janji Temu Lainnya</a>
             <table class="table mt-5">
@@ -45,10 +45,7 @@
                         <td>{{$jt->tgl_temu}}</td>
                         <td>
                             @if($jt->service_id == null)
-                            <form action="{{route("doctor.riwayat",["janjiTemu"=>$jt->id])}}" method="get">
-                                @csrf
-                                <button type="submit" class="btn btn-success">Riwayat pasien</button>
-                            </form>
+                            <a href="{{route("doctor.riwayat",["janjiTemu"=>$jt->id])}}" class="btn btn-success">Riwayat Pasien</a>
                             @else
                             <a class="btn btn-warning">Download Riwayat</a>
                             @endif

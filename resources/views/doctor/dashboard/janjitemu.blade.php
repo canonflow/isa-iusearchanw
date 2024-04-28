@@ -14,8 +14,8 @@
                 {{session()->get('success')}}
             </div>
             @endif
-            <h1 class="text-center">JANJI TEMU PASIEN</h1>
-            <h3 class="text-center">Dr. Nathan Garzya Santoso</h3>
+            <h1 class="text-center">PILIH JANJI TEMU PASIEN</h1>
+                <h3 class="text-center">Dr. {{ auth()->user()->doctor->name }}</h3>
             <h5 class="text-center">Dokter Umum</h5>
             <a href="{{ route('doctor.index') }}" class="btn btn-primary">Kembali</a>
             <table class="table mt-5">
