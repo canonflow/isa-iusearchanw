@@ -6,11 +6,13 @@
                 <div class="card-header bg-light pt-3">
                     <h1 class="text-center">LIST JANJI TEMU</h1>
                     <br>
-                    <h5>Ny. Fanny Rorencia Ribowo</h5>
-                    <h6>19 thn</h6>
-                    <h6>Jl. Raya Kalirungkut, Kali Rungkut, Kec. Rungkut, Surabaya, Jawa Timur 60293</h6>
+                    <h5>{{ auth()->user()->patient->name }}</h5>
+                    <h6>{{ ((new DateTime(auth()->user()->patient->birth_date))->diff(new DateTime()))->y }} Tahun</h6>
+{{--                    <h6>Jl. Raya Kalirungkut, Kali Rungkut, Kec. Rungkut, Surabaya, Jawa Timur 60293</h6>--}}
+                    <h6>{{ auth()->user()->patient->address }}</h6>
                 </div>
                 <div class="card-body">
+                    <a href="{{ route('patient.janjitemu') }}" class="btn btn-primary mb-3">Tambah Janji Temu</a>
                     <table class="table">
                         <thead>
                             <tr>

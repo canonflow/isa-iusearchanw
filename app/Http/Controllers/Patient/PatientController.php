@@ -9,12 +9,17 @@ use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
-    public function index() {   
+    public function index() {
         $janjiTemu = JanjiTemu::where('patient_id', Auth::user()->patient->id)->get();
         return view('patient.index', compact('janjiTemu'));
     }
 
     public function createJanjiTemu(Request $request){
+        $request->validate([
+            'tgl_temu' => ['required'],
+            'keluhan' => ['required'],
+        ]);
+
         JanjiTemu::create([
             'patient_id'=>Auth::user()->patient->id,
             'tgl_temu'=>$request->get('tgl_temu'),

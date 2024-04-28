@@ -63,6 +63,11 @@ class DoctorController extends Controller
     }
 
     public function storeRiwayat(JanjiTemu $janjiTemu, Request $request){
+        $request->validate([
+            'riwayat' => ['required'],
+            'service' => ['required'],
+        ]);
+
         $janjiTemu->update([
             'riwayat_pemeriksaan'=>$request->get('riwayat'),
             'service_id'=>$request->get('service')

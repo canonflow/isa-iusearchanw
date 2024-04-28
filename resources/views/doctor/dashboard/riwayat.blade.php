@@ -8,8 +8,19 @@
                     {{ session()->get('success') }}
                 </div>
             @endif
+            @error ('riwayat')
+                <div class="alert alert-danger" role="alert">
+                    <span class="fw-bold">{{ $message }}</span>
+                </div>
+            @enderror
+            @error ('service')
+                <div class="alert alert-danger" role="alert">
+                    <span class="fw-bold">{{ $message }}</span>
+                </div>
+            @enderror
             <div class="card">
                 <div class="card-header bg-light">
+                    <a href="{{ route('doctor.index') }}" class="btn btn-warning mt-2 mb-6">Kembali</a>
                     <h1 class="text-center mt-3">Riwayat Pasien {{ $janjiTemu->patient->name }}</h1>
                     <br>
                     <h5>Dr. {{ auth()->user()->doctor->name }}</h5>
@@ -21,7 +32,7 @@
                         <div class="col-12">
                             <label for="inputKeluhan" class="form-label">Riwayat Pemeriksaan</label>
                             <br>
-                            <textarea name="riwayat" id="inputKeluhan" cols="150" rows=10 placeholder="Ketikkan keluhan anda di sini"></textarea>
+                            <textarea name="riwayat" id="inputKeluhan" cols="150" rows=10 placeholder="Ketikkan keluhan anda di sini">{{ old('riwayat') }}</textarea>
                         </div>
                         <div class="col-md-6">
                             <label for="tglTemu" class="form-label">Service</label>
