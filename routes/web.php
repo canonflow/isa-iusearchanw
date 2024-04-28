@@ -25,9 +25,9 @@ Route::get('/', function () {
 
 // ===== Admin =====
 Route::group(
-    ['prefix' => 'admin', 'as' => 'admin.'],
+    ['middleware' => 'admin','prefix' => 'admin', 'as' => 'admin.'],
     function () {
-        // Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+        Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
         Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
         Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');

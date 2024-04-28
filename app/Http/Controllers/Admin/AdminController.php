@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Doctor;
 use App\Models\JanjiTemu;
 use App\Models\Nota;
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Crypt;
 class AdminController extends Controller
 {
     public function index() {
-        return view('admin.layouts.index');
+        $janjiTemu = JanjiTemu::whereNotNull('doctor_id')->whereNotNull('service_id')->get();
+        return view('admin.dashboard.index',compact('janjiTemu'));
     }
 
     public function createDoctor(Request $request){
