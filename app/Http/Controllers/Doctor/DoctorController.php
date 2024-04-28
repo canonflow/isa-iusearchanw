@@ -7,8 +7,10 @@ use App\Models\Doctor;
 use App\Models\JanjiTemu;
 use App\Models\Patient;
 use App\Models\Service;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function Spatie\LaravelPdf\Support\pdf;
 
 class DoctorController extends Controller
 {
@@ -74,5 +76,14 @@ class DoctorController extends Controller
         ]);
         session()->flash('listRiwayat', 'Berhasil menyimpan riwayat');
         return redirect()->to(route('doctor.index'));
+    }
+
+    public function printRiwayat(JanjiTemu $janjiTemu) {
+        $name = "riwayat-pemeriksaan-" . $janjiTemu->patient->name ."-" . date('Y-m-d', strtotime(Carbon::now())) . ".pdf";
+        return pdf()
+            ->view('doctor.pdf.riwayat', compact('janjiTemu'))
+            ->format("A4")
+            ->name($name);
+//        return view('doctor.pdf.riwayat', compact('janjiTemu'));
     }
 }

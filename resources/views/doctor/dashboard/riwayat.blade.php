@@ -55,12 +55,15 @@
 
 
 @section('script')
-
-<script>
-    const fp = flatpickr('#tglTemu', {
-    dateFormat: "Y-m-d H:i:S",
-    enableTime: true,
-    time_24hr: true
-});
+<script src="{{ asset('js') }}/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#inputKeluhan',
+        toolbar1: 'newdocument | undo | redo | bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify |  fontselect | fontsizeselect ',
+        toolbar2: 'cut | copy | paste | bullist | numlist | outdent | indent | blockquote | removeformat | subscript | superscript',
+        relative_urls: false,
+        document_base_url: '{{ asset('.') }}',
+        paste_data_images: true
+    });
 </script>
 @endsection

@@ -47,7 +47,7 @@
                             @if($jt->service_id == null)
                             <a href="{{route("doctor.riwayat",["janjiTemu"=>$jt->id])}}" class="btn btn-success">Riwayat Pasien</a>
                             @else
-                            <a class="btn btn-warning">Download Riwayat</a>
+                            <a target="_blank" href="{{ route('doctor.riwayat.print', ['janjiTemu' => $jt->id]) }}" class="btn btn-warning">Download Riwayat</a>
                             @endif
                         </td>
                     </tr>

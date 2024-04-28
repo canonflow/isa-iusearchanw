@@ -19,6 +19,11 @@
                 {{session()->get('failed')}}
             </div>
             @endif
+            @error('grand_total')
+                <div class="alert alert-danger" role="alert">
+                    <span class="fw-bold">{{ $message }}</span>
+                </div>
+            @enderror
             <h1 class="text-center">DAFTAR TRANSAKSI</h1>
             <h3 class="text-center">{{auth()->user()->admin->name}}</h3>
             <h5 class="text-center">Admin</h5>
@@ -49,7 +54,7 @@
                                 <button type="button" class="btn btn-warning" onclick="openModalBuatNota('{{ $jt->id }}')">Buat Nota</button>
                                 @else
                                 <a
-                                    href="{{ route('nota.print', ['janjiTemu' => $jt->id]) }}"
+                                    href="{{ route('admin.nota.print', ['janjiTemu' => $jt->id]) }}"
                                     class="btn btn-success"
                                     target="_blank"
                                 >
