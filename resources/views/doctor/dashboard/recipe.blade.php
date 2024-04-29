@@ -29,36 +29,77 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td style="text-align: left;">Antangin</td>
-            <td>200</td>
-            <td>Anton</td>
-            <td><button class="btn btn-link">Edit</button>              
-            <button type="button" class="btn btn-danger">Hapus</button>
-            </td>          
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td style="text-align: left;">Panadol</td>
-            <td>500</td>
-            <td>Putri</td>
-            <td><button class="btn btn-link">Edit</button>              
-            <button type="button" class="btn btn-danger">Hapus</button>
-            </td>          
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td style="text-align: left;">Paracetamol</td>
-            <!-- <td colspan="2">Pegel Linu</td> -->
-            <td>250</td>
-            <td>Fanny</td>
-            <td><button class="btn btn-link">Edit</button>              
-            <button type="button" class="btn btn-danger">Hapus</button>
-            </td>
-          </tr>
+        @php
+          $i=1;
+        @endphp
+        @foreach ($recipe as $r)
+            <tr>
+              <td>{{$r}}</td>
+              <td>{{$r->doctor->name}}</td>
+              <td>{{$r->patient->name}}</td>
+              <td>{{$r->name}}</td>
+              <td>{{$r->dose}}</td>
+              <td>{{$r->note}}</td>
+              <td>{{$r->unit}}</td>
+              <td><button class="btn btn-link">Edit</button>              
+              <button type="button" class="btn btn-danger">Hapus</button>
+              </td>
+              <td>
+              <td>
+                @if(Count($r->recipe()->get())==0)
+                <button type="button" class="btn btn-warning" onclick="openModalBuatRecipe('{{ $r->id }}')">Buat Recipe</button>
+                @else
+                <a
+                    href="{{ route('doctor.recipe.print', ['recipe' => $r->id]) }}"
+                    class="btn btn-success"
+                    target="_blank"
+                >
+                    Print Recipe
+                </a>
+                @endif        
+              </td>
+            </tr>
+            @php($i++)
+          @endforeach
         </tbody>
       </table>
     </div>
   </div>
+      <!-- Modal Buat Recipe -->
+      <div class="modal fade" id="modalBuatRecipe" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Buat Recipe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" id="formModalBuatRecipe" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text fw-semibold" id="addon-wrapping">Grand Total</span>
+                            <input type="text" class="form-control" name="grand_total" placeholder="Rp. xxx.xxx" aria-label="Grand Total" aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Buat</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('js') }}/jquery.min.js"></script>
+    <script>
+        const modalBuatRecipe = document.getElementById('modalBuatRecipe');
+        const formModalBuatRecipe = document.getElementById('formModalBuatRecipe');
+        const openModalBuatRecipe = (id) => {
+            let action = `{{ route('doctor.dashboard.recipe') }}/${id}/recipe`;
+            formModalBuatRecipe.setAttribute('action', action);
+            $("#modalBuatRecipe").modal('toggle');
+        }
+
+    </script>
 @endsection

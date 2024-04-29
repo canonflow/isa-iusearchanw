@@ -30,11 +30,11 @@ Route::group(
         Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
         Route::post('/{janjiTemu}/nota', [Admin\AdminController::class, 'createNota']);
         Route::get('/{janjiTemu}/nota/print', [Admin\AdminController::class, 'printNota'])->name('nota.print');
-
-        Route::view("/input/nota", "admin.tambahNota")->name("tambahNota");
+        Route::view("/input/nota", "admin.dashboard.insertNota")->name("insertNota");
+        Route::post('/input/nota', [Admin\AdminController::class, 'createNota'])->name('create-nota');
         Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
-        Route::view('/display/recipe', 'admin.dashboard.recipe.blade.php')->name('admin.recipe.blade.php');
+        Route::view('/display/recipe', 'admin.dashboard.listrecipe')->name('admin.listrecipe.blade.php');
 //        Route::view('/listdokter', 'admin.dashboard.listdoctor')->name('admin.listdoctor');
         Route::get('/listdokter', [Admin\AdminController::class, 'displayDoctor']);
         Route::get('/listpasien', [Admin\AdminController::class, 'displayPatient']);
@@ -68,7 +68,10 @@ Route::group(
         // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
         //     ->name('patient.destroy');
         Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
-        Route::view("/resep", "doctor.dashboard.recipe.blade.php")->name("resep");
+        Route::view("/recipe", "doctor.dashboard.recipe.blade.php")->name("recipe");
+        Route::post('/{idrecipe}/recipe', [Doctor\DoctorController::class, 'createRecipe']);
+        Route::get('/{idrecipe}/recipe/print', [Doctor\DoctorController::class, 'printRecipe'])->name('recipe.print');
+
         Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
         Route::get('/janjiTemu', [Doctor\DoctorController::class, 'janjiTemu'])->name('janjiTemu');
         Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('terima-janjiTemu');
