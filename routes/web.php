@@ -6,6 +6,7 @@ use App\Http\Controllers\Doctor;
 use App\Http\Controllers\Patient;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +24,36 @@ Route::get('/', function () {
 });
 
 
+Route::group(
+    ['middleware' => 'guest'],
+    function () {
+        Route::view('/login/id-card', 'auth.login-id')->name('login.id');
+        Route::post('/login/id-card', [LoginController::class, 'login_id_card'])->name('login.id-post');
+
+    }
+);
+
+
 // ===== Admin =====
 Route::group(
     ['middleware' => 'admin','prefix' => 'admin', 'as' => 'admin.'],
     function () {
+        // ===== Index =====
         Route::get('/', [Admin\AdminController::class, 'index'])->name('index');
+
+        // ===== Nota =====
         Route::post('/{janjiTemu}/nota', [Admin\AdminController::class, 'createNota']);
         Route::get('/{janjiTemu}/nota/print', [Admin\AdminController::class, 'printNota'])->name('nota.print');
-        Route::view("/input/nota", "admin.dashboard.insertNota")->name("insertNota");
-        Route::post('/input/nota', [Admin\AdminController::class, 'createNota'])->name('create-nota');
+
+        // ===== Add =====
+        Route::view('/add/user','admin.dashboard.add.user')->name('add.user.index');
+        Route::post('/add/user', [Admin\AdminController::class, 'addUser'])->name("add.user.store");
+        Route::get('/add/idcard', [Admin\AdminController::class, 'idcardIndex'])->name('add.idcard.index');
+        Route::post('/add/idcard', [Admin\AdminController::class, 'createIdCard'])->name('add.idcard.store');
+
+
+//        Route::post('/input/nota', [Admin\AdminController::class, 'createNota'])->name('create-nota');
+//        Route::view("/input/nota", "admin.dashboard.insertNota")->name("insertNota");
         Route::view('/display/janjiTemu', 'admin.dashboard.janjitemu')->name('admin.janjiTemu');
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
         Route::view('/display/recipe', 'admin.dashboard.listrecipe')->name('admin.listrecipe.blade.php');
@@ -72,11 +94,11 @@ Route::group(
         Route::post('/{idrecipe}/recipe', [Doctor\DoctorController::class, 'createRecipe']);
         Route::get('/{idrecipe}/recipe/print', [Doctor\DoctorController::class, 'printRecipe'])->name('recipe.print');
 
-        Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
+//        Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
         Route::get('/janjiTemu', [Doctor\DoctorController::class, 'janjiTemu'])->name('janjiTemu');
         Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('terima-janjiTemu');
         Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
-        Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
+//        Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
         Route::get('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'riwayat'])->name('riwayat');
         Route::post('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'storeRiwayat'])->name('riwayat');
         Route::get('/janjiTemu/{janjiTemu}/riwayat/print', [Doctor\DoctorController::class, 'printRiwayat'])->name('riwayat.print');

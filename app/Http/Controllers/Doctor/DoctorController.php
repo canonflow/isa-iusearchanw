@@ -41,10 +41,10 @@ class DoctorController extends Controller
         return back()->with('success', 'Berhasil menambahkan Janji Temu dengan ' . $patient->name);
     }
 
-    public function createRecipe(Recipe $recipe, Request $request){
+    public function createRecipe(JanjiTemu $janjiTemu, Request $request){
         Recipe::create([
             'doctor_id' => Auth::user()->doctor->id,
-            'patient'=>$recipe->patient_id,
+            'patient'=> $janjiTemu->patient_id,
             'name'=>$request->get('name'),
             'dose'=>$request->get('dose'),
             'note'=>$request->get('note'),

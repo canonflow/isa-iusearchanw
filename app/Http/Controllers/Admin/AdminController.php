@@ -13,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use MaikSchneider\Steganography\Processor;
 use Spatie\LaravelPdf\Facades\Pdf;
 use function Spatie\LaravelPdf\Support\pdf;
 
@@ -23,31 +24,66 @@ class AdminController extends Controller
         return view('admin.dashboard.index',compact('janjiTemu'));
     }
 
-    public function createDoctor(Request $request){
+    public function addUser(Request $request){
         $request->validate([
             'username' => ['required', 'unique:users,username'],
             'name' => ['required'],
-            'password' => ['required']
+            'password' => ['required', 'min:8', 'max:20'],
+            'role' => ['required']
         ]);
 
+        $roles = ['admin', 'dokter'];
+        if (!in_array($request->get('role'), $roles)) {
+            return back()->with('failed', 'Role yang dimasukkan tidak valid!');
+        }
+//
         $user = User::create([
             'username'=>$request->get('username'),
             'password'=> Crypt::encryptString($request->get('password')),
-            'role' => 'dokter'
+            'role' => $request->get('role'),
         ]);
 
-        $doctor = Doctor::query()->create([
-            'name' => $request->get('name'),
-            'user_id' => $user->id
-        ]);
+        if ($request->get('role') == 'dokter') {
+            $doctor = Doctor::create([
+                'name' => $request->get('name'),
+                'user_id' => $user->id
+            ]);
+        } else {
+            $admin = Admin::create([
+                'name' => $request->get('name'),
+                'user_id' => $user->id
+            ]);
+        }
 
-        return redirect()->back()->with('success', "Berhasil membuat user " . $doctor->name);
+        return redirect()->back()->with('success', "Berhasil Menambahkan User baru dengan username " . $user->username);
     }
 
-    public function makeStegano(Doctor $doctor) {
+    public function idcardIndex() {
+        $users = User::all();
+        return view('admin.dashboard.add.idcard', compact('users'));
+    }
+    public function createIdCard(Request $request) {
+        $request->validate([
+            'username' => ['required']
+        ]);
 
-        $path = "";
-        // return response()->download();
+        try {
+            $user = User::where('username', $request->get('username'))->first();
+            // Make Stegano
+            $processor = new Processor();
+            $img = $processor->encode(public_path("images/card/" . $user->role .".png"), $user->username . "~" . Crypt::decryptString($user->password));
+            if (!is_dir(storage_path("app/public/encode"))) {
+                mkdir(storage_path("app/public/encode"), 0777, true);
+            }
+
+            $img->write(storage_path("app/public/encode/" . $user->username . ".png"));
+
+            return response()->download(storage_path("app/public/encode/" . $user->username . ".png"))->deleteFileAfterSend(true);
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('failed', "Gagal Membuat ID Card");
+        }
+
+
     }
 
     public function createNota(JanjiTemu $janjiTemu, Request $request) {

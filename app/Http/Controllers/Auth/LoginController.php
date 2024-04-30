@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
+use MaikSchneider\Steganography\Processor;
 
 class LoginController extends Controller
 {
@@ -93,6 +95,34 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    public function login_id_card(Request $request) {
+        $request->validate([
+            'card' => ['required', 'file', "max:10240", 'mimes:png']
+        ]);
+
+        try {
+            $processor =new Processor();
+            $request->file('card')->storeAs('decode', 'card.png', 'public');
+            $msg = $processor->decode(storage_path("app/public/decode/card.png"));
+            $msg = explode("~", $msg);
+            $username = $msg[0];
+            $password = $msg[1];
+            if (($user = User::where('username', $username)->first()) != null) {
+                if (Crypt::decryptString($user->password) == $password) {
+                    $this->guard()->login($user);
+                    return $this->sendLoginResponse($request);
+                }
+            }
+
+            return redirect()->back()->with('cardRejected', "ID Card tidak terdaftar atau tidak valid!");
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('cardRejected', "ID Card tidak terdaftar atau tidak valid!");
+        } finally {
+            if (Storage::has('decode/card.png')) {
+                Storage::delete('decode/card.png');
+            }
+        }
+    }
 
     /**
      * Create a new controller instance.

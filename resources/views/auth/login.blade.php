@@ -68,6 +68,18 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-8 pt-4">
+            <div class="card">
+                <div class="card-header">ID Card</div>
+                <div class="card-body">
+                    <div class="row mb-8">
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ route('login.id') }}" class="btn btn-info">Login with ID Card</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

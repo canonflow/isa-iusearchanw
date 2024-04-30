@@ -27,6 +27,10 @@
             <h1 class="text-center">DAFTAR TRANSAKSI</h1>
             <h3 class="text-center">{{auth()->user()->admin->name}}</h3>
             <h5 class="text-center">Admin</h5>
+            <div class="d-flex justify-content-between">
+                <a href="{{ route('admin.add.user.index') }}" class="btn btn-primary">Tambah User (Dokter & Admin)</a>
+                <a href="{{ route('admin.add.idcard.index') }}" class="btn btn-info">Buat ID Card</a>
+            </div>
             <table class="table mt-5">
                 <thead>
                     <tr>
