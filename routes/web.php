@@ -80,28 +80,25 @@ Route::group(
     ['middleware' => 'doctor', 'prefix' => 'doctor', 'as' => 'doctor.'],
     function () {
         // Dashboard
-        // Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
-
-        // // Janji Temu
-        // Route::get('/patient', [Doctor\PatientController::class, 'index'])
-        //     ->name('patient.index');
-        // Route::post('/patient', [Doctor\PatientController::class, 'store'])
-        //     ->name('patient.store');
-        // Route::post('/patient/{janjiTemu}/destroy', [Doctor\PatientController::class, 'destroy'])
-        //     ->name('patient.destroy');
         Route::get('/', [Doctor\DoctorController::class, 'index'])->name('index');
-        Route::view("/recipe", "doctor.dashboard.recipe.blade.php")->name("recipe");
-        Route::post('/{idrecipe}/recipe', [Doctor\DoctorController::class, 'createRecipe']);
-        Route::get('/{idrecipe}/recipe/print', [Doctor\DoctorController::class, 'printRecipe'])->name('recipe.print');
+//        Route::view("/recipe", "doctor.dashboard.recipe.blade.php")->name("recipe");
+//        Route::post('/{idrecipe}/recipe', [Doctor\DoctorController::class, 'createRecipe']);
+//        Route::get('/{idrecipe}/recipe/print', [Doctor\DoctorController::class, 'printRecipe'])->name('recipe.print');
 
 //        Route::view("/praktik", "doctor.dashboard.practicSchedule")->name("praktik");
+        // ===== Janji Temu =====
         Route::get('/janjiTemu', [Doctor\DoctorController::class, 'janjiTemu'])->name('janjiTemu');
         Route::post("/janjiTemu/{janjiTemu}",[Doctor\DoctorController::class, 'acceptJanjiTemu'])->name('terima-janjiTemu');
-        Route::view('/tambahRecipe', 'doctor.dashboard.insertRecipe')->name('insertRecipe');
-//        Route::view('/listdokter', 'doctor.patient.listdoctor')->name('admin.listdoctor');
+
+        // ===== Riwayat =====
         Route::get('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'riwayat'])->name('riwayat');
         Route::post('/janjiTemu/{janjiTemu}/riwayat', [Doctor\DoctorController::class, 'storeRiwayat'])->name('riwayat');
         Route::get('/janjiTemu/{janjiTemu}/riwayat/print', [Doctor\DoctorController::class, 'printRiwayat'])->name('riwayat.print');
+
+        // ===== Recipe =====
+        Route::get('/janjiTemu/{janjiTemu}/recipe', [Doctor\DoctorController::class, 'recipe'])->name('recipe.index');
+        Route::post('/janjiTemu/{janjiTemu}/recipe', [Doctor\DoctorController::class, 'createRecipe'])->name('recipe.store');
+        Route::get('/janjiTemu/{janjiTemu}/recipe/print', [Doctor\DoctorController::class, 'printRecipe'])->name('recipe.print');
     }
 );
 

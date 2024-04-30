@@ -41,17 +41,43 @@ class DoctorController extends Controller
         return back()->with('success', 'Berhasil menambahkan Janji Temu dengan ' . $patient->name);
     }
 
+    public function recipe(JanjiTemu $janjiTemu) {
+        if ($janjiTemu->recipe_id != null) abort(403);
+        return view('doctor.dashboard.recipe', compact('janjiTemu'));
+    }
+
     public function createRecipe(JanjiTemu $janjiTemu, Request $request){
-        Recipe::create([
-            'doctor_id' => Auth::user()->doctor->id,
-            'patient'=> $janjiTemu->patient_id,
-            'name'=>$request->get('name'),
-            'dose'=>$request->get('dose'),
-            'note'=>$request->get('note'),
-            'unit'=>$request->get('unit')
+        if ($janjiTemu->recipe_id != null) abort(403);
+        $request->validate([
+            'name' => ['required'],
+            'note' => ['required']
         ]);
 
-        return redirect()->back()->with('success', "Berhasil membuat resep");
+        $recipe = Recipe::create([
+            'doctor_id' => Auth::user()->doctor->id,
+            'patient_id'=> $janjiTemu->patient_id,
+            'name'=>$request->get('name'),
+            'dose'=> 1,
+            'note'=>$request->get('note'),
+            'unit'=> 'tablet'
+        ]);
+
+        $janjiTemu->update([
+            'recipe_id' => $recipe->id
+        ]);
+
+        return redirect()->back()->with('success', "Berhasil membuat resep untuk " . $janjiTemu->patient->name);
+    }
+
+    public function printRecipe(JanjiTemu $janjiTemu) {
+        if ($janjiTemu->recipe_id == null) abort(403);
+
+        $name = "resep-obat-" . $janjiTemu->patient->name ."-" . date('Y-m-d', strtotime(Carbon::now())) . ".pdf";
+        return pdf()
+            ->view('doctor.pdf.resep', compact('janjiTemu'))
+            ->format("A4")
+            ->name($name);
+//        return view('doctor.pdf.resep', compact('janjiTemu'));
     }
 
     public function acceptJanjiTemu(JanjiTemu $janjiTemu){
@@ -82,6 +108,8 @@ class DoctorController extends Controller
     }
 
     public function printRiwayat(JanjiTemu $janjiTemu) {
+        if ($janjiTemu->service_id == null) abort(403);
+
         $name = "riwayat-pemeriksaan-" . $janjiTemu->patient->name ."-" . date('Y-m-d', strtotime(Carbon::now())) . ".pdf";
         return pdf()
             ->view('doctor.pdf.riwayat', compact('janjiTemu'))

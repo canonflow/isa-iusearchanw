@@ -26,11 +26,11 @@
             <table class="table mt-5">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nama Pasien</th>
-                        <th scope="col">Keluhan</th>
-                        <th scope="col">Tanggal Temu</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" width="5%">Id</th>
+                        <th scope="col" width="20%">Nama Pasien</th>
+                        <th scope="col" width="20%">Keluhan</th>
+                        <th scope="col" width="20%">Tanggal Temu</th>
+                        <th scope="col" width="25%" class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,21 +39,25 @@
                     @endphp
                     @foreach($janjiTemu as $jt)
                     <tr>
-                        <td>{{$i}}</td>
-                        <td>{{$jt->patient->name}}</td>
-                        <td>{{$jt->keluhan}}</td>
-                        <td>{{$jt->tgl_temu}}</td>
-                        <td>
+                        <td width="5%">{{$i}}</td>
+                        <td width="20%">{{$jt->patient->name}}</td>
+                        <td width="20%">{{$jt->keluhan}}</td>
+                        <td width="20%">{{$jt->tgl_temu}}</td>
+                        <td width="25%">
                             @if($jt->service_id == null)
-                            <a href="{{route("doctor.riwayat",["janjiTemu"=>$jt->id])}}" class="btn btn-success">Riwayat Pasien</a>
+                                <a href="{{route("doctor.riwayat",["janjiTemu"=>$jt->id])}}" class="btn btn-success">Tambah Riwayat Pasien</a>
                             @else
-                            <a target="_blank" href="{{ route('doctor.riwayat.print', ['janjiTemu' => $jt->id]) }}" class="btn btn-warning">Download Riwayat</a>
+                                <a target="_blank" href="{{ route('doctor.riwayat.print', ['janjiTemu' => $jt->id]) }}" class="btn btn-warning">Download Riwayat</a>
+                            @endif
+                            @if($jt->recipe_id == null && $jt->service_id != null)
+                                <a href="{{ route('doctor.recipe.index', ['janjiTemu' => $jt->id]) }}" class="btn btn-info">Buat Resep</a>
+                            @elseif($jt->service_id != null)
+                                <a target="_blank" href="{{ route('doctor.recipe.print', ['janjiTemu' => $jt->id]) }}" class="btn btn-primary">Download Resep</a>
                             @endif
                         </td>
                     </tr>
                     @php($i++)
                     @endforeach
-
                 </tbody>
             </table>
         </div>
