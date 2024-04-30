@@ -42,12 +42,15 @@ class DoctorController extends Controller
     }
 
     public function recipe(JanjiTemu $janjiTemu) {
-        if ($janjiTemu->recipe_id != null) abort(403);
+        if($janjiTemu->doctor_id == null) abort(403);
+        if ($janjiTemu->doctor_id != Auth::user()->doctor->id) abort(403);
         return view('doctor.dashboard.recipe', compact('janjiTemu'));
     }
 
     public function createRecipe(JanjiTemu $janjiTemu, Request $request){
         if ($janjiTemu->recipe_id != null) abort(403);
+        if($janjiTemu->doctor_id == null) abort(403);
+        if ($janjiTemu->doctor_id != Auth::user()->doctor->id) abort(403);
         $request->validate([
             'name' => ['required'],
             'note' => ['required']
@@ -71,6 +74,8 @@ class DoctorController extends Controller
 
     public function printRecipe(JanjiTemu $janjiTemu) {
         if ($janjiTemu->recipe_id == null) abort(403);
+        if($janjiTemu->doctor_id == null) abort(403);
+        if ($janjiTemu->doctor_id != Auth::user()->doctor->id) abort(403);
 
         $name = "resep-obat-" . $janjiTemu->patient->name ."-" . date('Y-m-d', strtotime(Carbon::now())) . ".pdf";
         return pdf()
@@ -81,6 +86,7 @@ class DoctorController extends Controller
     }
 
     public function acceptJanjiTemu(JanjiTemu $janjiTemu){
+        if ($janjiTemu->doctor_id != null) abort(403);
         $janjiTemu->update([
             'doctor_id' => Auth::user()->doctor->id,
             'status'=>'Diterima'
@@ -89,11 +95,16 @@ class DoctorController extends Controller
     }
 
     public function riwayat(JanjiTemu $janjiTemu){
+        if($janjiTemu->doctor_id == null) abort(403);
+        if ($janjiTemu->doctor_id != Auth::user()->doctor->id) abort(403);
         $services = Service::all();
         return view('doctor.dashboard.riwayat', compact('janjiTemu', 'services'));
     }
 
     public function storeRiwayat(JanjiTemu $janjiTemu, Request $request){
+        if($janjiTemu->doctor_id == null) abort(403);
+        if ($janjiTemu->doctor_id != Auth::user()->doctor->id) abort(403);
+        if ($janjiTemu->service_id != null) abort(403);
         $request->validate([
             'riwayat' => ['required'],
             'service' => ['required'],
@@ -109,6 +120,7 @@ class DoctorController extends Controller
 
     public function printRiwayat(JanjiTemu $janjiTemu) {
         if ($janjiTemu->service_id == null) abort(403);
+        if ($janjiTemu->doctor_id != Auth::user()->doctor->id) abort(403);
 
         $name = "riwayat-pemeriksaan-" . $janjiTemu->patient->name ."-" . date('Y-m-d', strtotime(Carbon::now())) . ".pdf";
         return pdf()
