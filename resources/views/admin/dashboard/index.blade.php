@@ -28,7 +28,11 @@
             <h3 class="text-center">{{auth()->user()->admin->name}}</h3>
             <h5 class="text-center">Admin</h5>
             <div class="d-flex justify-content-between">
-                <a href="{{ route('admin.add.user.index') }}" class="btn btn-primary">Tambah User (Dokter & Admin)</a>
+                <a href="{{ route('admin.add.user.index') }}" class="btn btn-primary">Tambah User</a>
+                <div class="d-flex gap-4">
+                    <a class="btn btn-success" href="{{ route('admin.daftar.dokter') }}">Daftar Dokter</a>
+                    <a class="btn btn-warning" href="{{ route('admin.daftar.pasien') }}">Daftar Pasien</a>
+                </div>
                 <a href="{{ route('admin.add.idcard.index') }}" class="btn btn-info">Buat ID Card</a>
             </div>
             <table class="table mt-5">
@@ -54,7 +58,7 @@
                             <td>{{$jt->keluhan}}</td>
                             <td>{{$jt->tgl_temu}}</td>
                             <td>
-                                @if(Count($jt->nota()->get())==0)
+                                @if(count($jt->nota()->get())==0)
                                 <button type="button" class="btn btn-warning" onclick="openModalBuatNota('{{ $jt->id }}')">Buat Nota</button>
                                 @else
                                 <a

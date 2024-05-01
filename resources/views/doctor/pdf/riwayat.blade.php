@@ -27,7 +27,7 @@
             <tr>
                 <td width="5%">Dokter</td>
                 <td>:</td>
-                <td><p class="text-md font-medium">Dr. {{ auth()->user()->doctor->name }}</p></td>
+                <td><p class="text-md font-medium">Dr. {{ $janjiTemu->doctor->name }}</p></td>
             </tr>
             <tr>
                 <td width="5%">Pasien</td>

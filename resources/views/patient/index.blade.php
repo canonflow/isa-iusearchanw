@@ -16,12 +16,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama Dokter</th>
-                                <th scope="col">Tanggal Temu</th>
-                                <th scope="col">Keluhan</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Recipes</th>
+                                <th scope="col" width="5%">No</th>
+                                <th scope="col" width="20%">Nama Dokter</th>
+                                <th scope="col" width="20%">Tanggal Temu</th>
+                                <th scope="col" width="20%">Keluhan</th>
+                                <th scope="col" width="5%">Status</th>
+                                <th scope="col" width="20%">Riwayat Pemeriksaan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,20 +31,20 @@
                             @endphp
                             @foreach ($janjiTemu as $jt)
                                 <tr>
-                                    <td>{{ $i }}</td>
-                                    <td>{{ ($jt->doctor_id) ? $jt->doctor->name : '-' }}</td>
-                                    <td>{{ $jt->tgl_temu }}</td>
-                                    <td>{{ $jt->keluhan }}</td>
-                                    <td>
+                                    <td width="5%">{{ $i }}</td>
+                                    <td width="20%">{{ ($jt->doctor_id) ? $jt->doctor->name : '-' }}</td>
+                                    <td width="20%">{{ $jt->tgl_temu }}</td>
+                                    <td width="20%">{{ $jt->keluhan }}</td>
+                                    <td width="5%">
                                         @if($jt->status=='Menunggu')
                                         <span class="badge bg-warning text-dark">{{$jt->status}}</span>
                                         @else
                                         <span class="badge bg-success">{{$jt->status}}</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        @if($jt->recipe_id!=null)
-                                        <a href=""class="btn btn-primary">Lihat resep doktor</a>
+                                    <td width="20%">
+                                        @if($jt->service_id!=null)
+                                        <a target="_blank" href="{{ route('patient.janjitemu.print', ['janjiTemu' => $jt->id]) }}"class="btn btn-primary">Lihat Riwayat Pemeriksaan</a>
                                         @endif
                                     </td>
                                 </tr>

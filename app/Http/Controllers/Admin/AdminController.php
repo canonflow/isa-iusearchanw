@@ -120,5 +120,17 @@ class AdminController extends Controller
         return view('admin.dashboard.listpatient', compact('patients'));
     }
 
+    public function destroyDoctor(Doctor $doctor) {
+        $name = $doctor->name;
+        $doctor->delete();
 
+        return back()->with('success', "Berhasil menghapus Dr. " . $name);
+    }
+
+    public function destroyPatient(Patient $patient) {
+        $name = $patient->name;
+        $patient->delete();
+
+        return back()->with('success', "Berhasil menghapus Pasien " . $name);
+    }
 }

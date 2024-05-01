@@ -51,6 +51,10 @@ Route::group(
         Route::get('/add/idcard', [Admin\AdminController::class, 'idcardIndex'])->name('add.idcard.index');
         Route::post('/add/idcard', [Admin\AdminController::class, 'createIdCard'])->name('add.idcard.store');
 
+        // ===== Destroy =====
+        Route::delete('/dokter/{doctor}/destroy', [Admin\AdminController::class, 'destroyDoctor'])->name('destroy.doctor');
+        Route::delete('/pasien/{patient}/destroy', [Admin\AdminController::class, 'destroyPatient'])->name('destroy.patient');
+
 
 //        Route::post('/input/nota', [Admin\AdminController::class, 'createNota'])->name('create-nota');
 //        Route::view("/input/nota", "admin.dashboard.insertNota")->name("insertNota");
@@ -58,8 +62,8 @@ Route::group(
         Route::view('/display/service', 'admin.dashboard.service')->name('admin.service');
         Route::view('/display/recipe', 'admin.dashboard.listrecipe')->name('admin.listrecipe.blade.php');
 //        Route::view('/listdokter', 'admin.dashboard.listdoctor')->name('admin.listdoctor');
-        Route::get('/listdokter', [Admin\AdminController::class, 'displayDoctor']);
-        Route::get('/listpasien', [Admin\AdminController::class, 'displayPatient']);
+        Route::get('/listdokter', [Admin\AdminController::class, 'displayDoctor'])->name('daftar.dokter');
+        Route::get('/listpasien', [Admin\AdminController::class, 'displayPatient'])->name('daftar.pasien');
         // Route::view('/listpasien', 'admin.dashboard.listpatient')->name('admin.listpatient');
 
     }
@@ -72,6 +76,7 @@ Route::group(
         Route::get('/', [Patient\PatientController::class, 'index'])->name('index');
         Route::view('/janjiTemu', 'patient.janjitemu')->name('janjitemu');
         Route::post('/janjiTemu', [Patient\PatientController::class, 'createJanjiTemu'])->name('create-janjitemu');
+        Route::get('/janjiTemu/{janjiTemu}/print', [Patient\PatientController::class, 'printRiwayat'])->name('janjitemu.print');
     }
 );
 
