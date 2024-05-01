@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Doctor;
 use App\Http\Controllers\Patient;
 use GuzzleHttp\Middleware;
@@ -19,9 +20,8 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
+Route::get('/', [Admin\AdminController::class, 'listDoctorHome']);
 
 
 Route::group(

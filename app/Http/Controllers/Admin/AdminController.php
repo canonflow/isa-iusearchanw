@@ -115,6 +115,11 @@ class AdminController extends Controller
         return view('admin.dashboard.listdoctor', compact('doctors'));
     }
 
+    public function listDoctorHome(){
+        $doctors = Doctor::all();
+        return view('home', compact('doctors'));
+    }
+
     public function displayPatient(){
         $patients = Patient::all();
         return view('admin.dashboard.listpatient', compact('patients'));

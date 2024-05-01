@@ -1,24 +1,44 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <h1 class="text-center">Selamat Datang di RAWAT JALAN INAP</h1>
-        <img src="{{asset('images/foto_dokter.png')}}" alt="harusnya sih foto gengs kita yah">
-        {{-- <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+@section('styles')
+    <style>
+        td {
+            font-size: 1.5rem;
+        }
+    </style>
+@endsection
 
-                    
-                </div>
-            </div>
-        </div> --}}
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="text-center py-2">Selamat Datang di RAWAT JALAN INAP</h1>
+            <img class="py-3" src="{{ asset('images/foto_dokter.png') }}" alt="dokter">
+            <h2 class="text-center py-5">List Dokter</h2>
+            <table class="text-center">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Nama</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($doctors as $doctor)
+                        <tr>
+                            <td>{{ $i }}</td>
+                            <td>{{ 'Dr. ' . $doctor->name }}</td>
+                        </tr>
+                        @php
+                            $i++;
+                        @endphp
+                    @endforeach
+                </tbody>
+
+
+            </table>
+
+        </div>
     </div>
-</div>
 @endsection
