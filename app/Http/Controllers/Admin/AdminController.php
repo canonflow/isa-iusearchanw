@@ -60,7 +60,7 @@ class AdminController extends Controller
 
     public function idcardIndex() {
         $users = User::all();
-        return view('admin.dashboard.add.idcard', compact('users'));
+        return view('admin.dashboard.Add.idcard', compact('users'));
     }
     public function createIdCard(Request $request) {
         $request->validate([

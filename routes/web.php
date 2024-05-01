@@ -46,7 +46,7 @@ Route::group(
         Route::get('/{janjiTemu}/nota/print', [Admin\AdminController::class, 'printNota'])->name('nota.print');
 
         // ===== Add =====
-        Route::view('/add/user','admin.dashboard.add.user')->name('add.user.index');
+        Route::view('/add/user','admin.dashboard.Add.user')->name('add.user.index');
         Route::post('/add/user', [Admin\AdminController::class, 'addUser'])->name("add.user.store");
         Route::get('/add/idcard', [Admin\AdminController::class, 'idcardIndex'])->name('add.idcard.index');
         Route::post('/add/idcard', [Admin\AdminController::class, 'createIdCard'])->name('add.idcard.store');
